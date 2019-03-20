@@ -10,7 +10,8 @@ class OpenMicTest < Minitest::Test
               :sal,
               :ali,
               :joke_1,
-              :joke_2
+              :joke_2,
+              :joke_3
 
   def setup
     @open_mic = OpenMic.new({location: "Comedy Works", date: "11-20-18"})
@@ -18,6 +19,7 @@ class OpenMicTest < Minitest::Test
     @ali = User.new("Ali")
     @joke_1 = Joke.new(1, "Why did the strawberry cross the road?", "Because his mother was in a jam.")
     @joke_2 = Joke.new(2, "How do you keep a lion from charging?", "Take away its credit cards.")
+    @joke_3 = Joke.new(3, "Did you hear about the semi-colon that broke the law?", "He was given two consecutive sentences.")
   end
 
   def test_it_exists
@@ -47,6 +49,18 @@ class OpenMicTest < Minitest::Test
     refute open_mic.repeated_jokes?
 
     ali.tell(sal, joke_1)
+    assert open_mic.repeated_jokes?
+  end
+
+  def test_it_can_tell_if_performers_have_the_same_jokes_when_out_of_order
+    open_mic.welcome(sal)
+    open_mic.welcome(ali)
+    ali.learn(joke_2)
+    ali.learn(joke_1)
+    sal.learn(joke_3)
+    refute open_mic.repeated_jokes?
+
+    ali.tell(sal, joke_2)
     assert open_mic.repeated_jokes?
   end
 end
