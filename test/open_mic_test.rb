@@ -52,7 +52,7 @@ class OpenMicTest < Minitest::Test
     assert open_mic.repeated_jokes?
   end
 
-  def test_it_can_tell_if_performers_have_the_same_jokes_when_out_of_order
+  def test_it_can_tell_if_performers_have_the_same_jokes_when_told_or_learned_out_of_order
     open_mic.welcome(sal)
     open_mic.welcome(ali)
     ali.learn(joke_2)
