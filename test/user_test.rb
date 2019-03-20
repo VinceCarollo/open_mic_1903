@@ -11,7 +11,6 @@ class UserTest < Minitest::Test
     @ali = User.new("Ali")
     @joke_1 = Joke.new(1, "Why did the strawberry cross the road?", "Because his mother was in a jam.")
     @joke_2 = Joke.new(2, "How do you keep a lion from charging?", "Take away its credit cards.")
-
   end
 
   def test_it_exists
@@ -35,5 +34,13 @@ class UserTest < Minitest::Test
     assert_equal [joke_1, joke_2], ali.jokes
     assert_equal joke_1, ali.joke_by_id(1)
     assert_equal joke_2, ali.joke_by_id(2)
+  end
+
+  def test_it_cant_learn_the_same_joke_twice
+    sal.learn(joke_1)
+    sal.learn(joke_2)
+    sal.learn(joke_2)
+    ali.tell(sal, joke_2)
+    assert_equal [joke_1, joke_2], sal.jokes
   end
 end
