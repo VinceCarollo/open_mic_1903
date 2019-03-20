@@ -7,11 +7,15 @@ class User
   end
 
   def learn(joke)
-    @jokes << joke
+    if !@jokes.include?(joke)
+      @jokes << joke
+    end
   end
 
   def tell(told_user, joke)
-    told_user.jokes << joke
+    if !told_user.jokes.include?(joke)
+      told_user.jokes << joke
+    end
   end
 
   def joke_by_id(id)

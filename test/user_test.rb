@@ -36,4 +36,12 @@ class UserTest < Minitest::Test
     assert_equal joke_1, ali.joke_by_id(1)
     assert_equal joke_2, ali.joke_by_id(2)
   end
+
+  def test_it_cant_learn_or_be_told_the_same_joke_twice
+    sal.learn(joke_1)
+    sal.learn(joke_2)
+    sal.learn(joke_2)
+    ali.tell(sal, joke_2)
+    assert_equal [joke_1, joke_2], sal.jokes
+  end
 end
